@@ -47,8 +47,8 @@ int main(int argc, char **argv) {
         else
         {
              Mat gray;                      //存储灰度图的矩阵
-             cvtColor(imageInput,gray, cv::COLOR_RGB2GRAY);//将RGB图转化为灰度图
-             //亚像素精确化（两种方法）
+             cvtColor(imageInput,gray, cv::COLOR_RGB2GRAY);
+             //亚像素精确化
              find4QuadCornerSubpix(gray, image_points_buf, Size(5,5));
              image_points_seq.push_back(image_points_buf);//保存亚像素角点
              //在图中画出角点位置
@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
     int total = image_points_seq.size();
     cout<<"total = "<<total<<endl;
     int CornerNum = board_size.width*board_size.height;//一幅图片中的角点数
-    //以第一幅图片为例，下同
     cout<<"第一副图片的角点数据:"<<endl;
     for (int i=0; i<CornerNum; i++)
     {
@@ -73,7 +72,7 @@ int main(int argc, char **argv) {
     cout<<"角点提取完成!\n";
     
     //开始相机标定
-    cout<<"开始标定……"<<endl;
+    cout<<"开始标定"<<endl;
     Size square_size = Size(10,10);              //每个小方格实际大小
     vector<vector<Point3f>> object_points;         //保存角点的三维坐标
     Mat cameraMatrix = Mat(3,3,CV_32FC1,Scalar::all(0));//内参矩阵3*3
