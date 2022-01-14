@@ -158,6 +158,8 @@ void CCalibration::calibProcess()
 	    }
 	    else
 	    {
+			//亚像素精确化
+		    cornerSubPix(image, corners, Size(11, 11), Size(-1,-1), TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 30, 0.1));
 			//检测角点的连通性（排除质量较差的图片）
 			bool good = testCorners(corners, boardSize.width, boardSize.height);
 			if (good == false)	continue;
